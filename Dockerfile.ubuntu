@@ -1,0 +1,15 @@
+FROM ubuntu:24.04
+
+RUN apt-get -y update
+RUN apt-get -y install build-essential
+
+# Set up GCC 14 as the default compiler
+RUN \
+    apt-get -q -y install gcc-14 g++-14 \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 100 \
+        --slave /usr/bin/g++ g++ /usr/bin/g++-14 \
+        --slave /usr/bin/gcov gcov /usr/bin/gcov-14 \
+    && update-alternatives --set gcc /usr/bin/gcc-14
+
+WORKDIR /json-test-asan
+COPY ./ /json-test-asan

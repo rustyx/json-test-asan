@@ -1,0 +1,5 @@
+json-test-*
+*.o
+*.tmp
+perf.data*
+sym*
